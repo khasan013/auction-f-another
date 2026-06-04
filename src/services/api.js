@@ -1,7 +1,7 @@
 ﻿import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const rawApiBaseURL = process.env.VITE_API_URL || 'https://backend-for-auction-bd-railway.vercel.apphttp://localhost:5000';
+const rawApiBaseURL = process.env.VITE_API_URL || 'https://backend-for-auctionbd-railway.onrender.com';
 const apiBaseURL = `${rawApiBaseURL.replace(/\/$/, '')}/api`;
 
 const api = axios.create({
