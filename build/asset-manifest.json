@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c1496b5b.css",
-    "main.js": "/static/js/main.ca485a35.js",
+    "main.css": "/static/css/main.59b382a5.css",
+    "main.js": "/static/js/main.505be7b7.js",
     "static/js/936.d117a039.chunk.js": "/static/js/936.d117a039.chunk.js",
     "static/js/622.abd68fe9.chunk.js": "/static/js/622.abd68fe9.chunk.js",
     "static/js/225.65a930ed.chunk.js": "/static/js/225.65a930ed.chunk.js",
@@ -24,8 +24,8 @@
     "static/js/789.406c8c16.chunk.js": "/static/js/789.406c8c16.chunk.js",
     "static/media/drivebay-hero.webp": "/static/media/drivebay-hero.7655b639544dfa2be8e5.webp",
     "index.html": "/index.html",
-    "main.c1496b5b.css.map": "/static/css/main.c1496b5b.css.map",
-    "main.ca485a35.js.map": "/static/js/main.ca485a35.js.map",
+    "main.59b382a5.css.map": "/static/css/main.59b382a5.css.map",
+    "main.505be7b7.js.map": "/static/js/main.505be7b7.js.map",
     "936.d117a039.chunk.js.map": "/static/js/936.d117a039.chunk.js.map",
     "622.abd68fe9.chunk.js.map": "/static/js/622.abd68fe9.chunk.js.map",
     "225.65a930ed.chunk.js.map": "/static/js/225.65a930ed.chunk.js.map",
@@ -48,7 +48,7 @@
     "789.406c8c16.chunk.js.map": "/static/js/789.406c8c16.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c1496b5b.css",
-    "static/js/main.ca485a35.js"
+    "static/css/main.59b382a5.css",
+    "static/js/main.505be7b7.js"
   ]
 }

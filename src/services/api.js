@@ -1,10 +1,15 @@
 ﻿import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const rawApiBaseURL =
-  process.env.REACT_APP_API_URL ||
-  process.env.VITE_API_URL ||
-  'https://backend-for-auctionbd-railway.onrender.com';
+const FALLBACK_API_URL = 'https://backend-for-auctionbd-railway.onrender.com';
+const configuredApiURL = process.env.REACT_APP_API_URL || process.env.VITE_API_URL || FALLBACK_API_URL;
+const frontendURL = process.env.REACT_APP_FRONTEND_URL || process.env.VITE_FRONTEND_URL || '';
+const browserOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+const rawApiBaseURL = [browserOrigin, frontendURL, 'http://localhost:3000']
+  .filter(Boolean)
+  .some(origin => configuredApiURL.replace(/\/$/, '') === origin.replace(/\/$/, ''))
+  ? FALLBACK_API_URL
+  : configuredApiURL;
 const apiBaseURL = `${rawApiBaseURL.replace(/\/$/, '')}/api`;
 
 const api = axios.create({

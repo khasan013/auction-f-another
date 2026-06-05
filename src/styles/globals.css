@@ -653,11 +653,6 @@ img {
   will-change: transform;
 }
 
-.category-tile:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 212, 0, 0.48);
-}
-
 .category-tile span {
   color: var(--yellow);
   font-size: 22px;
@@ -686,11 +681,6 @@ img {
   contain: layout paint;
 }
 
-.auction-card:hover .auction-card-shell {
-  transform: translateY(-5px);
-  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.14);
-}
-
 .auction-image {
   position: relative;
   aspect-ratio: 1 / 0.76;
@@ -704,10 +694,6 @@ img {
   object-fit: cover;
   transition: transform 420ms ease;
   will-change: transform;
-}
-
-.auction-card:hover .auction-image img {
-  transform: scale(1.055);
 }
 
 .heart {
@@ -1269,6 +1255,22 @@ img {
   animation: float 7s ease-in-out infinite;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .category-tile:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 212, 0, 0.48);
+  }
+
+  .auction-card:hover .auction-card-shell {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.14);
+  }
+
+  .auction-card:hover .auction-image img {
+    transform: scale(1.055);
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -1363,6 +1365,24 @@ img {
     min-height: 66px;
   }
 
+  .site-header,
+  .hero-stat,
+  .featured-panel,
+  .bid-preview {
+    backdrop-filter: none;
+  }
+
+  .category-tile,
+  .auction-card-shell,
+  .auction-image img,
+  .hero::before {
+    will-change: auto;
+  }
+
+  .animate-float {
+    animation: none;
+  }
+
   .brand-copy small,
   .avatar-btn > span:first-child {
     display: none;
@@ -1386,8 +1406,7 @@ img {
 
   .hero::before {
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.995) 0%, rgba(0, 0, 0, 0.94) 62%, #000 100%),
-      url('../../public/drivebay-hero.webp') 28% center / cover no-repeat;
+      linear-gradient(180deg, #000 0%, #050505 72%, #000 100%);
   }
 
   .auctions-page,

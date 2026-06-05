@@ -1,23 +1,35 @@
 import { io } from 'socket.io-client';
 
 let socket = null;
+const FALLBACK_SOCKET_URL = 'https://backend-for-auctionbd-railway.onrender.com';
+
+const getSocketURL = () => {
+  const configuredURL = process.env.REACT_APP_API_URL || process.env.VITE_API_URL || FALLBACK_SOCKET_URL;
+  const frontendURL = process.env.REACT_APP_FRONTEND_URL || process.env.VITE_FRONTEND_URL || '';
+  const browserOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+  const isFrontendOrigin = [browserOrigin, frontendURL, 'http://localhost:3000']
+    .filter(Boolean)
+    .some(origin => configuredURL.replace(/\/$/, '') === origin.replace(/\/$/, ''));
+
+  return isFrontendOrigin ? FALLBACK_SOCKET_URL : configuredURL;
+};
 
 export const initSocket = (token) => {
-  if (socket?.connected) return socket;
+  if (!token) return null;
+  if (socket) return socket;
 
-  socket = io(
-    import.meta.env.VITE_API_URL || 'https://backendforauctionbdrailway-production.up.railway.app',
-    {
-      auth: { token },
-      transports: ['websocket', 'polling'],
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1000,
-    }
-  );
+  socket = io(getSocketURL(), {
+    auth: { token },
+    transports: ['websocket'],
+    reconnectionAttempts: 3,
+    reconnectionDelay: 1500,
+    timeout: 8000,
+  });
 
-  socket.on('connect', () => console.log('🔌 Socket connected:', socket.id));
-  socket.on('disconnect', (reason) => console.log('🔌 Socket disconnected:', reason));
-  socket.on('connect_error', (err) => console.error('🔌 Socket error:', err.message));
+  socket.on('connect_error', () => {
+    socket?.disconnect();
+    socket = null;
+  });
 
   return socket;
 };
