@@ -171,8 +171,8 @@ export default function Navbar() {
         </div>
 
         {menuOpen && (
-          <div className="container" style={{ paddingBottom: 14 }}>
-            <nav style={{ display: 'grid', gap: 8 }}>
+          <div className="container mobile-menu-panel">
+            <nav className="mobile-menu-links">
               {navLinks.map(link => (
                 <Link key={link.to} to={link.to} className="btn-secondary">
                   {link.label}

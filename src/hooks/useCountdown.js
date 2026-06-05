@@ -1,9 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const pad = (n) => String(n).padStart(2, '0');
 
-export const useCountdown = (endTime) => {
+export const useCountdown = (endTime, options = {}) => {
+  const { tickMs = 1000 } = options;
+
   const calcTimeLeft = () => {
+    if (!endTime) return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0, isExpired: true };
     const diff = new Date(endTime) - new Date();
     if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0, isExpired: true };
     return {
@@ -17,17 +20,22 @@ export const useCountdown = (endTime) => {
   };
 
   const [timeLeft, setTimeLeft] = useState(calcTimeLeft);
-  const intervalRef = useRef(null);
 
   useEffect(() => {
-    if (!endTime) return;
-    intervalRef.current = setInterval(() => {
+    if (!endTime) {
+      setTimeLeft(calcTimeLeft());
+      return undefined;
+    }
+
+    setTimeLeft(calcTimeLeft());
+    const intervalId = setInterval(() => {
       const t = calcTimeLeft();
       setTimeLeft(t);
-      if (t.isExpired) clearInterval(intervalRef.current);
-    }, 1000);
-    return () => clearInterval(intervalRef.current);
-  }, [endTime]);
+      if (t.isExpired) clearInterval(intervalId);
+    }, tickMs);
+
+    return () => clearInterval(intervalId);
+  }, [endTime, tickMs]);
 
   const format = () => {
     if (timeLeft.isExpired) return 'Ended';

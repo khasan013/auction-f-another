@@ -1,7 +1,10 @@
 ﻿import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const rawApiBaseURL = process.env.VITE_API_URL || 'https://backend-for-auctionbd-railway.onrender.com';
+const rawApiBaseURL =
+  process.env.REACT_APP_API_URL ||
+  process.env.VITE_API_URL ||
+  'https://backend-for-auctionbd-railway.onrender.com';
 const apiBaseURL = `${rawApiBaseURL.replace(/\/$/, '')}/api`;
 
 const api = axios.create({
@@ -30,6 +33,7 @@ api.interceptors.response.use(
     const message = error.response?.data?.message || error.message || 'Something went wrong';
 
     const isSessionProbe = error.config?.url?.includes('/auth/me');
+    const isBackgroundRead = (error.config?.method || 'get').toLowerCase() === 'get';
 
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
@@ -41,7 +45,7 @@ api.interceptors.response.use(
         deactivatedToastShown = true;
         toast.error(message);
       }
-    } else if (error.response?.status !== 400) {
+    } else if (!isBackgroundRead && error.response?.status !== 400) {
       toast.error(message);
     }
 

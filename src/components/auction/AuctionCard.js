@@ -13,7 +13,7 @@ function splitCountdown(format) {
 }
 
 function AuctionCard({ auction }) {
-  const { format, isExpired } = useCountdown(auction.endTime);
+  const { format, isExpired } = useCountdown(auction.endTime, { tickMs: 60000 });
   const primaryImage = auction.images?.find(image => image.isPrimary) || auction.images?.[0];
   const time = splitCountdown(format);
   const title = auction.title || 'Auction item';
@@ -24,7 +24,7 @@ function AuctionCard({ auction }) {
       <article className="auction-card-shell">
         <div className="auction-image">
           {primaryImage?.url ? (
-            <img src={primaryImage.url} alt={title} loading="lazy" />
+            <img src={primaryImage.url} alt={title} loading="lazy" decoding="async" />
           ) : (
             <div style={{ height: '100%', display: 'grid', placeItems: 'center', color: '#777', fontWeight: 900 }}>
               No Image

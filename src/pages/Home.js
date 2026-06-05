@@ -81,7 +81,7 @@ export default function Home() {
             transition={{ delay: 0.2, duration: 0.55 }}
           >
             <p>Sell, buy, and bid with real-time auction updates, trusted sellers, secure checkout, and a fast marketplace experience.</p>
-            <Link to="/auctions" className="btn-primary hero-cta">Learn More</Link>
+            <Link to="/auctions" className="btn-primary hero-cta">Browse Auctions</Link>
           </motion.div>
 
           <div className="slider-dots" aria-hidden="true">
@@ -154,7 +154,7 @@ export default function Home() {
       )}
 
       <section className="market-section">
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 24, alignItems: 'center' }}>
+        <div className="container sell-cta">
           <div>
             <p style={{ color: '#777', fontWeight: 800, marginBottom: 6 }}>Ready to sell?</p>
             <h2 style={{ fontSize: 'clamp(30px, 5vw, 54px)', lineHeight: 1.05 }}>Post an auction and let buyers compete.</h2>

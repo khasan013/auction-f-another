@@ -44,6 +44,7 @@ body {
   background: var(--ink);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -66,6 +67,17 @@ button {
 img {
   max-width: 100%;
   display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -425,10 +437,11 @@ img {
   inset: 0;
   z-index: 0;
   background:
-    linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.88) 43%, rgba(0, 0, 0, 0.46) 72%, #000 100%),
+    linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.995) 56%, rgba(0, 0, 0, 0.72) 78%, #000 100%),
     url('../../public/drivebay-hero.webp') center right / cover no-repeat;
-  opacity: 0.92;
+  opacity: 1;
   transform: scale(1.02);
+  will-change: transform;
 }
 
 .hero::after {
@@ -465,6 +478,7 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
+  contain: layout paint;
 }
 
 .hero-search input {
@@ -496,7 +510,7 @@ img {
   max-width: 720px;
   margin: 16px 0 0;
   color: #fff;
-  font-size: clamp(48px, 7vw, 94px);
+  font-size: clamp(46px, 6.2vw, 82px);
   line-height: 1.06;
   letter-spacing: 0;
   font-weight: 900;
@@ -522,7 +536,7 @@ img {
   justify-content: center;
   gap: 16px;
   width: min(760px, 100%);
-  margin-top: clamp(86px, 18vh, 220px);
+  margin-top: clamp(52px, 8vh, 110px);
 }
 
 .slider-dots span {
@@ -636,6 +650,7 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   transition: transform 180ms ease, border-color 180ms ease;
+  will-change: transform;
 }
 
 .category-tile:hover {
@@ -668,6 +683,7 @@ img {
   border-radius: var(--radius);
   box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08);
   transition: transform 180ms ease, box-shadow 180ms ease;
+  contain: layout paint;
 }
 
 .auction-card:hover .auction-card-shell {
@@ -687,6 +703,7 @@ img {
   height: 100%;
   object-fit: cover;
   transition: transform 420ms ease;
+  will-change: transform;
 }
 
 .auction-card:hover .auction-image img {
@@ -756,6 +773,10 @@ img {
   min-width: 0;
 }
 
+.auction-bottom > div:first-child {
+  min-width: 0;
+}
+
 .price-label,
 .timer-label {
   display: block;
@@ -770,6 +791,7 @@ img {
   color: #050505;
   font-family: var(--font-mono);
   font-size: 18px;
+  overflow-wrap: anywhere;
 }
 
 .timer {
@@ -777,6 +799,7 @@ img {
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   min-width: 106px;
+  font-variant-numeric: tabular-nums;
 }
 
 .timer span {
@@ -961,6 +984,7 @@ img {
 
 .detail-image img {
   width: 100%;
+  aspect-ratio: 16 / 10;
   max-height: 560px;
   object-fit: contain;
 }
@@ -1131,6 +1155,27 @@ img {
   background: #0d0d0e;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius);
+  scrollbar-width: none;
+}
+
+.tab-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.sell-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.mobile-menu-panel {
+  padding-bottom: 14px;
+}
+
+.mobile-menu-links {
+  display: grid;
+  gap: 8px;
 }
 
 .tab-strip button,
@@ -1221,7 +1266,7 @@ img {
 }
 
 .animate-float {
-  animation: float 4.8s ease-in-out infinite;
+  animation: float 7s ease-in-out infinite;
 }
 
 @keyframes spin {
@@ -1277,7 +1322,7 @@ img {
   }
 
   .slider-dots {
-    margin-top: 180px;
+    margin-top: 118px;
   }
 
   .hero-content {
@@ -1293,6 +1338,10 @@ img {
 
   .filter-rail {
     position: static;
+  }
+
+  .detail-grid > aside {
+    position: static !important;
   }
 }
 
@@ -1326,13 +1375,19 @@ img {
   .nav-actions .btn-primary,
   .nav-actions .btn-secondary {
     min-height: 46px;
-    padding: 0 13px;
+    padding: 0 11px;
     font-size: 13px;
   }
 
   .hero {
     min-height: auto;
-    padding: 28px 0 54px;
+    padding: 20px 0 46px;
+  }
+
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.995) 0%, rgba(0, 0, 0, 0.94) 62%, #000 100%),
+      url('../../public/drivebay-hero.webp') 28% center / cover no-repeat;
   }
 
   .auctions-page,
@@ -1343,8 +1398,12 @@ img {
 
   .hero-search {
     height: auto;
-    padding: 10px;
-    margin-bottom: 34px;
+    padding: 9px;
+    margin-bottom: 24px;
+  }
+
+  .hero-search input {
+    font-size: 14px;
   }
 
   .hero-search button {
@@ -1352,16 +1411,44 @@ img {
   }
 
   .hero-title {
-    font-size: clamp(38px, 11vw, 52px);
+    max-width: 540px;
+    font-size: clamp(34px, 8.6vw, 44px);
+    line-height: 1.08;
+  }
+
+  .eyebrow {
+    font-size: 15px;
+  }
+
+  .hero-side-copy {
+    max-width: 520px;
+    margin-top: 18px;
+    font-size: 15px;
+  }
+
+  .hero-cta {
+    margin-top: 18px;
   }
 
   .slider-dots {
-    margin-top: 92px;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 34px;
+  }
+
+  .slider-dots span {
+    width: 9px;
+    height: 9px;
   }
 
   .hero-stats {
+    grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 34px;
+  }
+
+  .hero-stat {
+    padding: 14px;
   }
 
   .section-head,
@@ -1375,8 +1462,43 @@ img {
     flex-direction: column;
   }
 
+  .timer {
+    width: 100%;
+    min-width: 0;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .sell-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .sell-cta .btn-primary {
+    width: 100%;
+  }
+
+  .filter-rail {
+    padding: 16px;
+  }
+
+  .listing-search {
+    height: auto;
+    min-height: 50px;
+    flex-wrap: wrap;
+  }
+
+  .listing-search .btn-ghost {
+    width: 100%;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tabs button {
+    flex: 0 0 auto;
   }
 }
 
